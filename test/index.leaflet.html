@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>使用leaflet</title>
     <link rel="stylesheet" href="./css/index.css">
-    <link href="http://cdn.bootcss.com/leaflet/1.1.0/leaflet.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/leaflet/1.1.0/leaflet.css" rel="stylesheet">
 </head>
 
 <body>
@@ -26,6 +26,10 @@
         </div>
         <div>
             <button id="crtStepBtn" class="hide">生成航线</button>
+        </div>
+        <div>
+            <p>若您的浏览器加载不出地图，可能是正在使用chrome浏览器，因为当前页面使用的是https，而地图瓦片是http协议加载的，chrome会出于安全考虑阻止请求</p>
+            <p>可以点击地址栏右边允许页面加载地图瓦片</p>
         </div>
     </div>
     <script src="https://cdn.bootcss.com/leaflet/1.1.0/leaflet-src.js"></script>

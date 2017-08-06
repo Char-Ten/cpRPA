@@ -63,6 +63,6 @@ console.log(steps)
 
 
 ## demo
-* [百度地图demo]()
-* [高德地图demo]()
-* [leaflet地图demo]()
+* [百度地图demo](https://char-ten.github.io/cpRPA/test/index.baidu.html)
+* [高德地图demo](https://char-ten.github.io/cpRPA/test/index.lbs.html)
+* [leaflet地图demo](https://char-ten.github.io/cpRPA/test/index.leaflet.html)

@@ -1,0 +1,23 @@
+{
+  "name": "cp-rpa",
+  "version": "1.0.0",
+  "description": "植保无人机凸多边形地块工作路线规划",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Char-Ten/cpRPA.git"
+  },
+  "author": "https://char-ten.github.io",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Char-Ten/cpRPA/issues"
+  },
+  "homepage": "https://github.com/Char-Ten/cpRPA#readme"
+}

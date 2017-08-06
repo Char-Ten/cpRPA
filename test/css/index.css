@@ -1,0 +1,36 @@
+html,
+body,
+#app {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+#app {
+    z-index: 0;
+}
+
+#aside {
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 200px;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 1;
+}
+
+#aside div {
+    margin: 15px 0;
+}
+
+.hide {
+    display: none;
+}
+
+button {
+    width: 150px;
+}

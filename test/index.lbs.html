@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>高德demo</title>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="aside">
+        <div>
+            <button id="ctrlBtn">绘制凸多边形地块</button>
+        </div>
+        <div>
+            <input type="number" placeholder="请输入飞行间隔" id="spaceInp" class="hide" />
+        </div>
+        <div id="stepRotateBox" class="hide">
+            <label>旋转角度</label>
+            <input type="range" id="stepRotate" max="360" min="0" value="0" />
+            <span id="stepRotateValue">0</span>
+        </div>
+        <div>
+            <button id="crtStepBtn" class="hide">生成航线</button>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.3&key=13ee80db511e05a414557967c0ca2c06"></script>
+    <script src="../lib/cpRPA.min.js"></script>
+    <script src="./js/index.lbs.js"></script>
+</body>
+
+</html>

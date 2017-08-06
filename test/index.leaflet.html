@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <link href="http://cdn.bootcss.com/leaflet/1.1.0/leaflet.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="aside">
+        <div>
+            <button id="ctrlBtn">绘制凸多边形地块</button>
+        </div>
+        <div>
+            <input type="number" placeholder="请输入飞行间隔" id="spaceInp" class="hide" />
+        </div>
+        <div id="stepRotateBox" class="hide">
+            <label>旋转角度</label>
+            <input type="range" id="stepRotate" max="360" min="0" value="0" />
+            <span id="stepRotateValue">0</span>
+        </div>
+        <div>
+            <button id="crtStepBtn" class="hide">生成航线</button>
+        </div>
+    </div>
+    <script src="https://cdn.bootcss.com/leaflet/1.1.0/leaflet-src.js"></script>
+    <script src="../lib/cpRPA.min.js"></script>
+    <script src="./js/index.leaflet.js"></script>
+</body>
+
+</html>

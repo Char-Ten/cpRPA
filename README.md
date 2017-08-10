@@ -3,7 +3,7 @@
 
 ## 快速使用
 1. 通过普通script标签引入，也支持cmd amd引入
-2. 根据所使用的地图类型不同，需要在使用前传入当前地图两个点距离的计算方法：  
+2. 根据所使用的地图类型不同，需要在使用前传入当前地图框架的一些计算方法：  
 ```javascript
 /**@method 设置距离计算方法
  * @param {Function} 传入计算的函数
@@ -22,15 +22,43 @@ cpRPA.setDistanceFn(function(p1,p2){
     return L.latLng(p1.lat, p1.lng).distanceTo(L.latLng(p2.lat, p2.lng))
     */
 });
+
+/**@method 设置经纬度转换成页面像素坐标的方法*/
+cpRPA.setLatlng2PxFn(function(latlng){
+    /**百度，map为 new BMap.Map() 对象*/
+    return map.pointToPixel(new BMap.Point(latlng.lng, latlng.lat))
+
+    /**
+    * 高德，map为 new AMap.Map() 对象
+    * return map.lngLatToContainer(new AMap.LngLat(latlng.lng, latlng.lat))
+    *
+    * leaflet map 为 L.map对象
+    * return map.latLngToLayerPoint(L.latLng(latlng.lat, latlng.lng)) 
+    */
+});
+
+/**@method 设置像素坐标转换成经纬度点的方法*/
+cpRPA.setPx2LatlngFn(function(px){
+     /**百度，map为 new BMap.Map() 对象*/
+    return map.pixelToPoint(new BMap.Pixel(px[0], px[1]))
+
+    /**
+    * 高德，map为 new AMap.Map() 对象
+    * return map.containerToLngLat(new AMap.Pixel(px[0], px[1]))
+    * 
+    * leaflet map 为 L.map对象
+    *  return map.layerPointToLatLng(L.point(px[0], px[1]))
+    */
+});
 ```
 3. 执行`.setOptions`方法，获得计算完的点集  
 ```javascript
-var steps=cpRPA.setOptions({
+var polylineLatlngs=cpRPA.setOptions({
     polygon:[/*凸多边形顶点点集*/],
-    stepRotate:0,
+    rotate:0,
     space: 5
 });
-console.log(steps)
+console.log(polylineLatlngs)
 ```
 
 ---
@@ -50,7 +78,7 @@ console.log(steps)
             <td>凸多边形的顶点集</td>
         </tr>
         <tr>
-            <td>stepRotate</td>
+            <td>rotate</td>
             <td>Number</td>
             <td>航线围绕地块中心点的旋转角度，顺时针为+，逆时针为-</td>
         </tr>

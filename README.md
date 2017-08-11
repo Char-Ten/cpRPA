@@ -1,6 +1,6 @@
 # cpRPA
 植保无人机凸多边形地块工作路线规划  
-> ![航线规划](//upload-images.jianshu.io/upload_images/2812131-8c4999d889a4d4ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+> ![航线规划](https://upload-images.jianshu.io/upload_images/2812131-8c4999d889a4d4ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ## 快速使用
 1. 通过普通script标签引入，也支持cmd amd引入

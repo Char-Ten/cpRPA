@@ -65,7 +65,19 @@ console.log(polylineLatlngs)
 ## 方法：
 * `setDistanceFn`   
 设置距离计算方法
-，接收一个函数"`function(p1,p2){return /**具体地图类型的距离计算方法*/}`"，必须在第一个`.setOptions`方法前设置
+，接收一个函数"`function(p1,p2){return /**具体地图类型的距离计算方法*/}`"，必须在第一个`.setOptions`方法前设置。  
+该传参函数的参数`p1,p2`为形如`{lat,lng}`的经纬度对象
+
+* `setLatlng2PxFn`  
+设置经纬度转地图像素坐标的方法，
+接收一个函数"`function(latlng){return /**具体地图类型的转换方法*/}`"，必须在第一个`.setOptions`方法前设置。  
+该传参函数的参数`latlng`为形如`{lat,lng}`的经纬度对象
+
+* `setPx2LatlngFn`
+设置地图像素转地图像素坐标的方法，
+接收一个函数"`function(px){return /**具体地图类型的转换方法*/}`"，必须在第一个`.setOptions`方法前设置。  
+该传参函数的参数`px`为形如`[x,y]`的像素坐标数组
+
 * `setOptions`  
 设置输入参数，返回航线点集
     <table>
@@ -89,6 +101,12 @@ console.log(polylineLatlngs)
         </tr>
     </table>
 
+* `getPolygonArea` 获取地块的初略面积，传入多边形地块的顶点经纬度数组，返回数值型面积值，这个面积值不是一个精确值。  
+   * 参数： `latlngs.<Array>`
+   * 返回： `{Number}` 
+* `getPolylineArea` 获取航线扫过的面积
+   * 参数： `(latlngs.<Array>,space.<Number>)`
+   * 返回：`{Number}` 
 
 ## demo
 * [百度地图demo](https://char-ten.github.io/cpRPA/test/index.baidu.html)

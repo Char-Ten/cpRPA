@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cpRPA - 植保无人机凸多边形地块工作路线规划</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e1f5fe 100%);
+        }
+        .code-block {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1.25rem;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+        }
+        .tab-active {
+            border-bottom: 2px solid #3b82f6;
+            color: #3b82f6;
+        }
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- 导航栏 -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-drone text-blue-500 text-2xl mr-2"></i>
+                        <span class="font-bold text-xl text-gray-800">cpRPA</span>
+                    </div>
+                    <div class="hidden md:ml-6 md:flex md:space-x-8">
+                        <a href="#features" class="text-gray-500 hover:text-blue-500 px-3 py-2 text-sm font-medium transition-colors">功能特性</a>
+                        <a href="#usage" class="text-gray-500 hover:text-blue-500 px-3 py-2 text-sm font-medium transition-colors">快速使用</a>
+                        <a href="#methods" class="text-gray-500 hover:text-blue-500 px-3 py-2 text-sm font-medium transition-colors">方法文档</a>
+                        <a href="#demos" class="text-gray-500 hover:text-blue-500 px-3 py-2 text-sm font-medium transition-colors">在线演示</a>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <a href="https://github.com/char-ten/cpRPA" class="text-gray-500 hover:text-gray-700">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主标题区域 -->
+    <header class="gradient-bg">
+        <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">cpRPA</h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">专为植保无人机设计的凸多边形地块工作路线规划解决方案</p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#usage" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 transition-colors">
+                        快速开始
+                    </a>
+                    <a href="#demos" class="inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+                        查看演示
+                    </a>
+                </div>
+            </div>
+            <div class="mt-12 flex justify-center">
+                <div class="w-full max-w-4xl bg-white rounded-xl shadow-lg overflow-hidden">
+                    <img src="https://upload-images.jianshu.io/upload_images/2812131-8c4999d889a4d4ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" 
+                         alt="航线规划示例" class="w-full h-auto">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 功能特性区域 -->
+    <section id="features" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-gray-900">核心特性</h2>
+                <p class="mt-4 text-lg text-gray-600">高效、精确、易用的植保无人机航线规划解决方案</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="feature-card bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-map-marked-alt text-blue-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">多地图支持</h3>
+                    <p class="text-gray-600">支持百度地图、高德地图和Leaflet等多种地图框架，灵活适配您的开发环境。</p>
+                </div>
+                <div class="feature-card bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-route text-green-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">智能航线规划</h3>
+                    <p class="text-gray-600">基于凸多边形地块自动生成最优飞行路线，提高作业效率，减少重复飞行。</p>
+                </div>
+                <div class="feature-card bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-crop-alt text-purple-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">面积计算</h3>
+                    <p class="text-gray-600">提供地块面积和航线扫过面积的计算功能，帮助您精确评估作业范围。</p>
+                </div>
+                <div class="feature-card bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                    <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-sync-alt text-yellow-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">航线旋转</h3>
+                    <p class="text-gray-600">支持航线围绕地块中心点旋转，适应不同地形和作业需求。</p>
+                </div>
+                <div class="feature-card bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-ruler text-red-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">精确间距控制</h3>
+                    <p class="text-gray-600">根据无人机翼展精确控制航线间距，确保作业覆盖无死角。</p>
+                </div>
+                <div class="feature-card bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-code text-indigo-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">简单集成</h3>
+                    <p class="text-gray-600">提供清晰的API文档和多种引入方式，快速集成到您的项目中。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 快速使用区域 -->
+    <section id="usage" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-gray-900">快速开始</h2>
+                <p class="mt-4 text-lg text-gray-600">只需几步即可集成cpRPA到您的项目中</p>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-md overflow-hidden mb-8">
+                <div class="border-b border-gray-200">
+                    <div class="flex -mb-px">
+                        <button id="step1-tab" class="tab-active py-4 px-6 text-sm font-medium">1. 引入库</button>
+                        <button id="step2-tab" class="py-4 px-6 text-sm font-medium text-gray-500 hover:text-gray-700">2. 配置地图方法</button>
+                        <button id="step3-tab" class="py-4 px-6 text-sm font-medium text-gray-500 hover:text-gray-700">3. 执行计算</button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div id="step1-content">
+                        <p class="text-gray-700 mb-4">通过普通script标签引入，也支持cmd amd引入</p>
+                        <div class="code-block">
+                            <span class="text-green-400">&lt;script src="path/to/cpRPA.js"&gt;&lt;/script&gt;</span>
+                        </div>
+                    </div>
+                    <div id="step2-content" class="hidden">
+                        <p class="text-gray-700 mb-4">根据所使用的地图类型不同，需要在使用前传入当前地图框架的一些计算方法</p>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-medium text-gray-900 mb-2">设置距离计算方法</h4>
+                            <div class="code-block">
+                                <span class="text-blue-400">cpRPA</span>.<span class="text-yellow-400">setDistanceFn</span>(<span class="text-green-400">function</span>(p1, p2) {<br>
+                                &nbsp;&nbsp;<span class="text-green-400">// 以百度地图为例</span><br>
+                                &nbsp;&nbsp;<span class="text-green-400">return</span> <span class="text-blue-400">new</span> <span class="text-purple-400">BMap.Map</span>().<span class="text-yellow-400">getDistance</span>(<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-blue-400">new</span> <span class="text-purple-400">BMap.Point</span>(p1.lng, p1.lat), <br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-blue-400">new</span> <span class="text-purple-400">BMap.Point</span>(p2.lng, p2.lat)<br>
+                                &nbsp;&nbsp;);<br>
+                                });
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-medium text-gray-900 mb-2">设置经纬度转像素坐标方法</h4>
+                            <div class="code-block">
+                                <span class="text-blue-400">cpRPA</span>.<span class="text-yellow-400">setLatlng2PxFn</span>(<span class="text-green-400">function</span>(latlng) {<br>
+                                &nbsp;&nbsp;<span class="text-green-400">// 以百度地图为例</span><br>
+                                &nbsp;&nbsp;<span class="text-green-400">return</span> map.<span class="text-yellow-400">pointToPixel</span>(<span class="text-blue-400">new</span> <span class="text-purple-400">BMap.Point</span>(latlng.lng, latlng.lat));<br>
+                                });
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-medium text-gray-900 mb-2">设置像素坐标转经纬度方法</h4>
+                            <div class="code-block">
+                                <span class="text-blue-400">cpRPA</span>.<span class="text-yellow-400">setPx2LatlngFn</span>(<span class="text-green-400">function</span>(px) {<br>
+                                &nbsp;&nbsp;<span class="text-green-400">// 以百度地图为例</span><br>
+                                &nbsp;&nbsp;<span class="text-green-400">return</span> map.<span class="text-yellow-400">pixelToPoint</span>(<span class="text-blue-400">new</span> <span class="text-purple-400">BMap.Pixel</span>(px[0], px[1]));<br>
+                                });
+                            </div>
+                        </div>
+                    </div>
+                    <div id="step3-content" class="hidden">
+                        <p class="text-gray-700 mb-4">执行.setOptions方法，获得计算完的点集</p>
+                        <div class="code-block">
+                            <span class="text-green-400">var</span> polylineLatlngs = <span class="text-blue-400">cpRPA</span>.<span class="text-yellow-400">setOptions</span>({<br>
+                            &nbsp;&nbsp;polygon: [<span class="text-green-400">/*凸多边形顶点点集*/</span>],<br>
+                            &nbsp;&nbsp;rotate: <span class="text-orange-400">0</span>,<br>
+                            &nbsp;&nbsp;space: <span class="text-orange-400">5</span><br>
+                            });<br><br>
+                            <span class="text-blue-400">console</span>.<span class="text-yellow-400">log</span>(polylineLatlngs);
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-blue-50 rounded-xl p-6 border border-blue-200">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-info-circle text-blue-500 text-xl"></i>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-sm font-medium text-blue-800">提示</h3>
+                        <div class="mt-2 text-sm text-blue-700">
+                            <p>以上配置方法必须在第一个<code class="bg-blue-100 px-1 rounded">.setOptions</code>方法前设置。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 方法文档区域 -->
+    <section id="methods" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-gray-900">方法文档</h2>
+                <p class="mt-4 text-lg text-gray-600">完整的API参考和参数说明</p>
+            </div>
+            
+            <div class="space-y-8">
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">setDistanceFn</h3>
+                    <p class="text-gray-700 mb-4">设置距离计算方法，接收一个函数，必须在第一个<code class="bg-gray-200 px-1 rounded">.setOptions</code>方法前设置。</p>
+                    <div class="code-block">
+                        <span class="text-blue-400">cpRPA</span>.<span class="text-yellow-400">setDistanceFn</span>(<span class="text-green-400">function</span>(p1, p2) {<br>
+                        &nbsp;&nbsp;<span class="text-green-400">return</span> <span class="text-green-400">/*具体地图类型的距离计算方法*/</span>;<br>
+                        });
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">setLatlng2PxFn</h3>
+                    <p class="text-gray-700 mb-4">设置经纬度转地图像素坐标的方法，必须在第一个<code class="bg-gray-200 px-1 rounded">.setOptions</code>方法前设置。</p>
+                    <div class="code-block">
+                        <span class="text-blue-400">cpRPA</span>.<span class="text-yellow-400">setLatlng2PxFn</span>(<span class="text-green-400">function</span>(latlng) {<br>
+                        &nbsp;&nbsp;<span class="text-green-400">return</span> <span class="text-green-400">/*具体地图类型的转换方法*/</span>;<br>
+                        });
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">setPx2LatlngFn</h3>
+                    <p class="text-gray-700 mb-4">设置地图像素转经纬度坐标的方法，必须在第一个<code class="bg-gray-200 px-1 rounded">.setOptions</code>方法前设置。</p>
+                    <div class="code-block">
+                        <span class="text-blue-400">cpRPA</span>.<span class="text-yellow-400">setPx2LatlngFn</span>(<span class="text-green-400">function</span>(px) {<br>
+                        &nbsp;&nbsp;<span class="text-green-400">return</span> <span class="text-green-400">/*具体地图类型的转换方法*/</span>;<br>
+                        });
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">setOptions</h3>
+                    <p class="text-gray-700 mb-4">设置输入参数，返回航线点集</p>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">参数</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">类型</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">polygon</td>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Array</td>
+                                    <td class="px-4 py-3 text-sm text-gray-500">凸多边形的顶点集</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">rotate</td>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Number</td>
+                                    <td class="px-4 py-3 text-sm text-gray-500">航线围绕地块中心点的旋转角度，顺时针为+，逆时针为-</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">space</td>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Number</td>
+                                    <td class="px-4 py-3 text-sm text-gray-500">无人机飞行相邻两条航线距离的一半。例如，无人机翼展为5米，则两条航线之间的合理距离为10米，space值为5</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">getPolygonArea</h3>
+                    <p class="text-gray-700 mb-4">获取地块的初略面积，传入多边形地块的顶点经纬度数组，返回数值型面积值，这个面积值不是一个精确值。</p>
+                    <div class="code-block">
+                        <span class="text-green-400">var</span> area = <span class="text-blue-400">cpRPA</span>.<span class="text-yellow-400">getPolygonArea</span>(latlngs);<br>
+                        <span class="text-green-400">// 参数: latlngs.&lt;Array&gt;</span><br>
+                        <span class="text-green-400">// 返回: {Number}</span>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">getPolylineArea</h3>
+                    <p class="text-gray-700 mb-4">获取航线扫过的面积</p>
+                    <div class="code-block">
+                        <span class="text-green-400">var</span> area = <span class="text-blue-400">cpRPA</span>.<span class="text-yellow-400">getPolylineArea</span>(latlngs, space);<br>
+                        <span class="text-green-400">// 参数: (latlngs.&lt;Array&gt;, space.&lt;Number&gt;)</span><br>
+                        <span class="text-green-400">// 返回: {Number}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 演示区域 -->
+    <section id="demos" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-gray-900">在线演示</h2>
+                <p class="mt-4 text-lg text-gray-600">体验cpRPA在不同地图框架下的表现</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl shadow-md overflow-hidden transition-transform hover:scale-105">
+                    <div class="h-48 bg-blue-100 flex items-center justify-center">
+                        <i class="fas fa-map text-blue-500 text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">百度地图演示</h3>
+                        <p class="text-gray-600 mb-4">在百度地图上体验cpRPA的航线规划功能</p>
+                        <a href="https://char-ten.github.io/cpRPA/test/index.baidu.html" target="_blank" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium">
+                            查看演示
+                            <i class="fas fa-external-link-alt ml-1 text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md overflow-hidden transition-transform hover:scale-105">
+                    <div class="h-48 bg-green-100 flex items-center justify-center">
+                        <i class="fas fa-map-marked-alt text-green-500 text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">高德地图演示</h3>
+                        <p class="text-gray-600 mb-4">在高德地图上体验cpRPA的航线规划功能</p>
+                        <a href="https://char-ten.github.io/cpRPA/test/index.lbs.html" target="_blank" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium">
+                            查看演示
+                            <i class="fas fa-external-link-alt ml-1 text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md overflow-hidden transition-transform hover:scale-105">
+                    <div class="h-48 bg-purple-100 flex items-center justify-center">
+                        <i class="fas fa-leaf text-purple-500 text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Leaflet地图演示</h3>
+                        <p class="text-gray-600 mb-4">在Leaflet地图上体验cpRPA的航线规划功能</p>
+                        <a href="https://char-ten.github.io/cpRPA/test/index.leaflet.html" target="_blank" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium">
+                            查看演示
+                            <i class="fas fa-external-link-alt ml-1 text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="md:flex md:items-center md:justify-between">
+                <div class="flex justify-center md:justify-start">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-drone text-blue-400 text-2xl mr-2"></i>
+                        <span class="font-bold text-xl">cpRPA</span>
+                    </div>
+                </div>
+                <div class="mt-8 md:mt-0 md:order-1">
+                    <p class="text-center text-base text-gray-400">
+                        &copy; 2023 cpRPA. 植保无人机凸多边形地块工作路线规划解决方案.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 标签切换功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('button[id$="-tab"]');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // 移除所有标签的激活状态
+                    tabs.forEach(t => {
+                        t.classList.remove('tab-active');
+                        t.classList.add('text-gray-500', 'hover:text-gray-700');
+                    });
+                    
+                    // 添加当前标签的激活状态
+                    this.classList.add('tab-active');
+                    this.classList.remove('text-gray-500', 'hover:text-gray-700');
+                    
+                    // 隐藏所有内容
+                    document.querySelectorAll('div[id$="-content"]').forEach(content => {
+                        content.classList.add('hidden');
+                    });
+                    
+                    // 显示当前内容
+                    const contentId = this.id.replace('-tab', '-content');
+                    document.getElementById(contentId).classList.remove('hidden');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
